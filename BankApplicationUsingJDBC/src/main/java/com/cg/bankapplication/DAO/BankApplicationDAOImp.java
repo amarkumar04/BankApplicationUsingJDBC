@@ -1,6 +1,10 @@
 package com.cg.bankapplication.DAO;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,13 +14,49 @@ import java.util.Map;
 
 import com.cg.bankapplication.bean.Customer;
 import com.cg.bankapplication.bean.Transaction;
+import com.cg.bankapplication.utility.DBConnection;
 
 public class BankApplicationDAOImp implements BankApplicationDAO {
 	
-	
+	Connection connection=null;
+	PreparedStatement statement=null;
+	ResultSet resultSet=null;
+	int row=-1;
 	public Customer createCustomerAcc(Customer customer) {
 		accountDetails.put(customer.getAccountNo(), customer) ;
+		
+		
+		long accountNo = 0 ;
+		long customerId = 0;
+		try(Connection connection=DBConnection.getConnection();) {
+			
+			
+			statement=connection.prepareStatement("select accountno.NEXTVAL from dual");
+			resultSet=statement.executeQuery();
+			while(resultSet.next())
+				accountNo=resultSet.getInt(1);
+			statement=connection.prepareStatement("select customerid.NEXTVAL from dual");
+			resultSet=statement.executeQuery();
+			while(resultSet.next())
+				customerId=resultSet.getInt(1);
+			
+			
+			statement=connection.prepareStatement("insert into Customer values(?,?,?,?,?,?,?,?)");
+			statement.setLong(1,customerId );
+			statement.setString(2, customer.getCustomerName());
+			statement.setString(3,customer.getEmail());
+			statement.setLong(4, customer.getAccountNo());
+			statement.setString(5, customer.getAddress());
+			statement.setLong(6, customer.getAccountNo());
+			statement.setDouble(7, customer.getBalance());
+			statement.setInt(8, customer.getPin());
+			row=statement.executeUpdate();
+			System.out.println("Book inserted");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		return customer;
+	
 	}
 
 	@Override
