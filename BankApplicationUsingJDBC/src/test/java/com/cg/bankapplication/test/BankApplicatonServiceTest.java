@@ -26,10 +26,10 @@ static Customer customer = null;
 	}
 	
 
-	@Before
+	/*@Before
 	public void setUp() throws Exception {
 	customer = new Customer(2121,"Sansjs", "sasaasa","7878877887", "saassa", 3340000006L, 10000.0, 1234) ;
-	}
+	}*/
 
 	@After
 	public void tearDown() throws Exception {

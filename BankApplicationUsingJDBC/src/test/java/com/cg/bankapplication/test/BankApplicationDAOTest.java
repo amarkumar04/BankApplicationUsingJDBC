@@ -15,6 +15,7 @@ import com.cg.bankapplication.DAO.BankApplicationDAOImp;
 import com.cg.bankapplication.bean.Customer;
 import com.cg.bankapplication.bean.Transaction;
 import com.cg.bankapplication.utility.DefaultAccount;
+import com.sun.xml.internal.ws.util.xml.XmlUtil;
 
 
 public class BankApplicationDAOTest {
@@ -34,8 +35,8 @@ static DefaultAccount da;
 	}
 
 	@Before
-	public void setUp() throws Exception {
-		customer = new Customer(2121,"Sansjs", "sasaasa","7878877887", "saassa", 3340000006L, 10000.0, 1234) ;
+	public void setUp() throws Exception {//new Customer(2121,"Sansjs", "sasaasa","7878877887", "saassa", 3340000006L, 10000.0, 1234) ;
+		customer = new Customer(2121L, "Sadsd dsa", "sadsa@sa.com", 89989898, "sadass", 3340000006L, 45, 1221) ;
 	
 	}
 
@@ -51,16 +52,16 @@ static DefaultAccount da;
 		
 	}
 
-	@Test
+/*	@Test
 	public void testDeleteCustomerAcc() {
 		dao.createCustomerAcc(customer);
 		assertTrue(dao.deleteCustomerAcc(customer));
 		
-	}
-	@Test
+	}*/
+	/*@Test
 	public void testFalseDeleteCustomerAcc() {
 		assertFalse(dao.deleteCustomerAcc(customer));
-	}
+	}*/
 	@Test
 	public void testDebit() {
 		dao.createCustomerAcc(customer) ;
@@ -74,13 +75,10 @@ static DefaultAccount da;
 	}
 	@Test
 	public void testGetTransactionDetails() {
-		da.TransactionInitialize() ;
-		da.AccountInitialize();
 		assertNotNull(dao.getTransactionDetails(3340000002L));
 	}
 	@Test
 	public void testFalseGetTransactionDetails() {
-		da.TransactionInitialize();
 		List<Transaction> li = new ArrayList<>();
 		assertEquals(li, (dao.getTransactionDetails(3340000006L)));
 	}

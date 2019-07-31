@@ -17,7 +17,7 @@ public interface BankApplicationDAO {
 	
 
 	Customer createCustomerAcc(Customer customer);
-	boolean deleteCustomerAcc(Customer customer) ;
+	boolean deleteCustomerAcc(long accountNo) ;
 	double debit(long accountNo, double amount);
 	boolean credit(long accountNo, double amount);
 	//boolean updateCustomerAcc(Customer customer) ;

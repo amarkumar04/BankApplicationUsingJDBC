@@ -23,8 +23,6 @@ public class BankApplication {
 	public static void main(String[] args) {
 		BankApplicationServiceImp service = new BankApplicationServiceImp();
 		DefaultAccount account = new DefaultAccount();
-		account.AccountInitialize();
-		account.TransactionInitialize();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
 		Scanner scanner = null;
 		int option = 0;
@@ -52,7 +50,6 @@ public class BankApplication {
 				do {
 					scanner = new Scanner(System.in);
 					System.out.println("Enter your name:");
-
 					try {
 						customerName = scanner.nextLine();
 						customerNameValid = service.isNameValid(customerName);
@@ -72,16 +69,16 @@ public class BankApplication {
 						System.err.println(e.getMessage());
 					}
 				} while (!emailValid);
-				String customerMobile = "";
+				long customerMobile = 0;
 				boolean customerMobileValid = false;
 				do {
 					scanner = new Scanner(System.in);
 					System.out.println("Enter your mobile number:");
 
 					try {
-						customerMobile = scanner.next();
-						customerMobileValid = service.isPhoneValid(customerMobile);
-					} catch (BankApplicationException e) {
+						customerMobile = scanner.nextLong();
+						customerMobileValid = true;
+					} catch (InputMismatchException e) {
 						System.err.println(e.getMessage());
 					}
 				} while (!customerMobileValid);
@@ -93,10 +90,10 @@ public class BankApplication {
 				}
 				int customerPIN = 0;
 				boolean pinValid = false;
+				boolean ReEnteredpinValid = false;
 				do {
 					scanner = new Scanner(System.in);
 					boolean pinValidInput = false;
-
 					try {
 						System.out.println("Enter a PIN for your account:[4digit number]");
 						customerPIN = scanner.nextInt();
@@ -104,18 +101,40 @@ public class BankApplication {
 					} catch (InputMismatchException e) {
 						System.err.println("PLEASE Enter only numbers.");
 					}
-
 					if (customerPIN > 999 && customerPIN < 10000)
 						pinValid = true;
 					else if (pinValidInput)
 						System.err.println("Please enter a valid pin of 4Numeric values.");
-				} while (!pinValid);
+					
+					
+					if(pinValid) {
+					System.out.println("Please Re-enter your pin:");
+					{
+						int customerReEnteredPIN = 0;
+						do {
+							scanner = new Scanner(System.in);
+							boolean ReEnterpinValidInput = false;
+							try {
+								System.out.println("Enter a PIN for your account:[4digit number]");
+								customerReEnteredPIN = scanner.nextInt();
+								ReEnterpinValidInput = true;
+							} catch (InputMismatchException e) {
+								System.err.println("PLEASE Enter only numbers.");
+							}
+							if (customerReEnteredPIN > 999 && customerReEnteredPIN < 10000)
+								ReEnteredpinValid = true;
+							else if (ReEnteredpinValid)
+								System.err.println("Please enter a valid pin of 4Numeric values.");	
+						} while (!ReEnteredpinValid);	
+					}
+					}
+				} while (!pinValid && !ReEnteredpinValid);
 				Customer customer = new Customer(0, customerName, customerEmail, customerMobile, customerAddress, 0, 0,
 						customerPIN);
 				Customer customerAccount = service.createCustomerAcc(customer);
 				if (customerAccount != null) {
 					System.out.println("Your account has been created successfully.");
-					int customerId = customerAccount.getCustomerId();
+					long customerId = customerAccount.getCustomerId();
 					long customerAccountNo = customerAccount.getAccountNo();
 					System.out.println("Your Account number is:" + customerAccountNo);
 					System.out.println("Your Customer id is:" + customerId + "\n");
@@ -143,8 +162,11 @@ public class BankApplication {
 					}
 				} while (!accountValid);
 				int pin;
+				String userName="";
 				do {
-					System.out.println("Enter your pin:");
+					userName = service.getCustomerAccountDetails(accountNo).getCustomerName();
+				System.out.println("Welcome to your account "+ userName+" :");
+					System.out.println("Please Enter your pin:");
 					scanner = new Scanner(System.in);
 					try {
 						pin = scanner.nextInt();
@@ -155,9 +177,10 @@ public class BankApplication {
 						System.err.println("Please enter only numberic values.");
 					}
 				} while (!userPinValid);
-
-				System.out.println("Welcome to your account:");
-			//	boolean userAccountFlag = false;
+				 
+				if(userPinValid) {
+					
+				System.out.println("Welcome to your account "+userName+" ");
 				do {
 					System.out.println("Enter your choice:");
 					System.out.println("1.Show balance.");
@@ -174,14 +197,12 @@ public class BankApplication {
 						} catch (InputMismatchException e) {
 							System.err.println("Please enter a valid option in numeric form.");
 						}
-
 					}
 					switch (option) {
 					case 1: {
 						System.out.println("********SHOW BALANCE********");
 						System.out.println("Your balance is " + service.showBalance(accountNo));
 					}
-
 						break;
 					case 2: {
 						System.out.println("********DEPOSITE MONEY********");
@@ -195,7 +216,7 @@ public class BankApplication {
 							} catch (InputMismatchException e) {
 								System.err.println(e.getMessage());
 							}
-							if (amount > 499 && amount < 100001)
+							if (amount > 10 && amount < 100001)
 								amountValid = true;
 							else
 								System.err.println(
@@ -205,10 +226,10 @@ public class BankApplication {
 							System.out.println("Money deposited.");
 							LocalDateTime now = LocalDateTime.now();
 							String time = dtf.format(now);
-
 							Transaction trans = new Transaction(service.createTransactionId(), "Credit",
 									service.getCustomerAccountDetails(accountNo).getCustomerId(), accountNo, 0, amount,
 									"Cash Deposite", time);
+							System.out.println(trans);
 							service.addTransaction(trans);
 						}
 					}
@@ -234,7 +255,6 @@ public class BankApplication {
 						do {
 							scanner = new Scanner(System.in);
 							System.out.println("Enter amount:");
-
 							try {
 								amount = scanner.nextDouble();
 								if (amount > 99 && amount < 50001) {
@@ -297,7 +317,6 @@ public class BankApplication {
 						do {
 							System.out.println("Enter amount:");
 							scanner = new Scanner(System.in);
-
 							try {
 								amount = scanner.nextInt();
 								amountValid = true;
@@ -355,7 +374,6 @@ public class BankApplication {
 						do {
 							scanner = new Scanner(System.in);
 							System.out.println("Enter your pin:");
-
 							try {
 								pin = scanner.nextInt();
 								userPinValid = service.validateUserPin(accountNo, pin);
@@ -385,18 +403,26 @@ public class BankApplication {
 						System.out.println(dao.accountDetails);
 					}
 						break;
-
 					default:
 						System.out.println("Please enter your options between 1 and 7.");
 					}
 				} while (option != 7);
-
+				}
+				else
+				{
+					scanner = new Scanner(System.in) ;
+					System.out.println("Do you want to exit?:(yes/no)");
+					String exitToMain = scanner.next();
+					if(exitToMain.equalsIgnoreCase("yes"))
+						break;
+					
+				}
 			}
-
-			default:
+			break;
+			case 3:System.exit(0);
+			default:System.out.println("Please enter a valid option.");
 				break;
 			}
-
 		} while (true);
 	}
 }

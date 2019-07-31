@@ -5,7 +5,7 @@ import java.util.Date;
 public class Transaction {
 	private String transactionId;
 	private String transactionType;
-	private int customerId;
+	private long customerId;
 	private long customerAccountNo;
 	private long receiverAccountNo;
 	private double amount;
@@ -15,7 +15,7 @@ public class Transaction {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Transaction(String transactionId, String transactionType, int customerId, long customerAccountNo,
+	public Transaction(String transactionId, String transactionType, long customerId, long customerAccountNo,
 			long receiverAccountNo, double amount, String transactionDetails, String date) {
 		super();
 		this.transactionId = transactionId;
@@ -39,10 +39,10 @@ public class Transaction {
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
 	}
-	public int getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 	public long getCustomerAccountNo() {

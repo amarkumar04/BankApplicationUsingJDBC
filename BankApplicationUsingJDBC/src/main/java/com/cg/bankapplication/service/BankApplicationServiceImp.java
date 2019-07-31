@@ -18,23 +18,17 @@ public class BankApplicationServiceImp implements BankApplicationService {
 	public Customer createCustomerAcc(Customer customer) {
 		customer.setAccountNo(accountNo);
 		customer.setCustomerId(customerId);
-		accountNo++;
-		customerId++;
-		
 		return dao.createCustomerAcc(customer);
-		
 	}
 
 	@Override
 	public boolean deleteCustomerAcc(long accountNo) {
-		Customer customer = dao.getCustomerAccountDetails(accountNo);
-		return dao.deleteCustomerAcc(customer);
+		return dao.deleteCustomerAcc(accountNo);
 	}
 
 
 	@Override
 	public boolean deposite(long accountNo, double amount) {
-		
 		if(dao.credit(accountNo, amount))
 			return true ;
 		else
@@ -43,7 +37,6 @@ public class BankApplicationServiceImp implements BankApplicationService {
 
 	@Override
 	public double withdraw(long accountNo, double amount) {
-		
 		return dao.debit(accountNo, amount);
 	}
 
@@ -70,7 +63,6 @@ public class BankApplicationServiceImp implements BankApplicationService {
 
 	@Override
 	public Customer getCustomerAccountDetails(long accountNo) {
-		
 		return dao.getCustomerAccountDetails(accountNo);
 	}
 
@@ -102,7 +94,6 @@ public class BankApplicationServiceImp implements BankApplicationService {
 
 	@Override
 	public boolean addTransaction(Transaction trans) {
-		
 		return dao.addTransaction(trans);
 	}
 	

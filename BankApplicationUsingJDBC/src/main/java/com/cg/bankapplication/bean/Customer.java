@@ -3,22 +3,20 @@ package com.cg.bankapplication.bean;
 import java.util.List;
 
 public class Customer {
-	private int customerId;
+	private long customerId;
 	private String customerName;
 	private String email;
-	private String mobile;
+	private long mobile;
 	private String address;
 	private long accountNo;
 	private double balance;
 	private int pin;
-	//private List<Transaction> transaction;
-
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customerId, String customerName, String email, String mobile, String address, long accountNo,
+	public Customer(long customerId, String customerName, String email, long mobile, String address, long accountNo,
 			double balance, int pin) {
 		super();
 		this.customerId = customerId;
@@ -31,11 +29,11 @@ public class Customer {
 		this.pin = pin;
 	}
 
-	public int getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 
@@ -55,11 +53,11 @@ public class Customer {
 		this.email = email;
 	}
 
-	public String getMobile() {
+	public long getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(String mobile) {
+	public void setMobile(long mobile) {
 		this.mobile = mobile;
 	}
 

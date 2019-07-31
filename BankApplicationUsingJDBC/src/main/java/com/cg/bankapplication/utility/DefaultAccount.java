@@ -9,19 +9,19 @@ import com.cg.bankapplication.bean.Transaction;
 import com.cg.bankapplication.service.BankApplicationServiceImp;
 
 public class DefaultAccount {
-	static BankApplicationDAOImp dao = new BankApplicationDAOImp();
+/*	static BankApplicationDAOImp dao = new BankApplicationDAOImp();
 	BankApplicationServiceImp service = new BankApplicationServiceImp();
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
 	public Map<Long, Customer> AccountInitialize(){
 		
-		dao.accountDetails.put(3340000001L, new Customer(7000001,"Sanjeev kumar","sksanjeev@gmail.com","8989898989","dfsdf",3340000001L,50000,1234)) ;
+		dao.accountDetails.put(3340000001L, new Customer(7000001,"Sanjeev kumar","sksanjeev@gmail.com",8989898989L,"dfsdf",3340000001L,50000,1234)) ;
 	
-		dao.accountDetails.put(3340000002L, new Customer(7000002,"Sanjeev kumar","sksanjeev@gmail.com","8989898989","dfsdf",3340000002L,50000,1234) ) ;
+		dao.accountDetails.put(3340000002L, new Customer(7000002,"Sanjeev kumar","sksanjeev@gmail.com",8989898989L,"dfsdf",3340000002L,50000,1234) ) ;
 	
-		dao.accountDetails.put(3340000003L, new Customer(7000003,"Sanjeev kumar","sksanjeev@gmail.com","8989898989","dfsdf",3340000003L,50000,1234) ) ;
+		dao.accountDetails.put(3340000003L, new Customer(7000003,"Sanjeev kumar","sksanjeev@gmail.com",8989898989L,"dfsdf",3340000003L,50000,1234) ) ;
 		
-		dao.accountDetails.put(3340000004L, new Customer(7000004,"Sanjeev kumar","sksanjeev@gmail.com","8989898989","dfsdf",3340000004L,50000,1234)) ;
+		dao.accountDetails.put(3340000004L, new Customer(7000004,"Sanjeev kumar","sksanjeev@gmail.com",8989898989L,"dfsdf",3340000004L,50000,1234)) ;
 		
 		return dao.accountDetails;
 		
@@ -39,6 +39,6 @@ public class DefaultAccount {
 		
 	}
 	
-
+*/
 
 }
