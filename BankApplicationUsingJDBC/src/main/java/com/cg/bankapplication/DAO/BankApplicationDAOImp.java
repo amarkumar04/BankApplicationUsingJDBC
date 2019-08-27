@@ -26,12 +26,10 @@ public class BankApplicationDAOImp implements BankApplicationDAO {
 			resultSet=statement.executeQuery();
 			while(resultSet.next())
 				accountNo = resultSet.getLong(1);
-			
 			statement=connection.prepareStatement("select customerid.NEXTVAL from dual");
 			resultSet=statement.executeQuery();
 			while(resultSet.next())
 				customerId=resultSet.getLong(1);
-			
 			customer.setAccountNo(accountNo);
 			customer.setCustomerId(customerId);
 			statement=connection.prepareStatement("insert into Customer values(?,?,?,?,?,?,?,?)");
@@ -44,8 +42,6 @@ public class BankApplicationDAOImp implements BankApplicationDAO {
 			statement.setDouble(7,customer.getBalance()); 
 			statement.setInt(8,customer.getPin()); 
 			row=statement.executeUpdate();
-			statement=connection.prepareStatement("commit");
-			statement.executeQuery();
 			System.out.println("Account Created.");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
